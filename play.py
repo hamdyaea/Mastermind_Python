@@ -6,34 +6,36 @@ from termcolor import colored
 import random
 import os
 
-os.system("cls||clear")  # Clear the terminal
+try: # Try to clear the terminal if not possible pass.
+    os.system("cls||clear")  # Clear the terminal
+except:
+    pass
+
+class colors:
+    def __init__(self):
+        self.FullBlock = "\u2588"  # Create a fullblock
+        self.RED = colored(colors.FullBlock, "red")
+        self.GREY = colored(colors.FullBlock, "grey")
+        self.GREEN = colored(colors.FullBlock, "green")
+        self.YELLOW = colored(colors.FullBlock, "yellow")
+        self.BLUE = colored(colors.FullBlock, "blue")
+        self.MAGENTA = colored(colors.FullBlock, "magenta")
+        self.CYAN = colored(colors.FullBlock, "cyan")
+        self.WHITE = colored(colors.FullBlock, "white")
 
 
-def coloredBlocks():
-    global RED, GREY, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE
+    def computerChoice(self):
+        self.count = 0
+        self.CPU = []
+        while copmputerChoice.count != 4:
+            computerChoice.count += 1
+            self.ALL = [colors.RED, colors.GREY, colors.GREEN, colors.YELLOW, colors.BLUE, colors.MAGENTA, colors.CYAN, colors,WHITE]
+            random.shuffle(computerChoice.ALL)
+            computerChoice.CPU.append(computerChoiceALL[0])
 
-    FullBlock = "\u2588"  # Create a fullblock
+        return(computerChoice.CPU)
 
-    RED = colored(FullBlock, "red")
-    GREY = colored(FullBlock, "grey")
-    GREEN = colored(FullBlock, "green")
-    YELLOW = colored(FullBlock, "yellow")
-    BLUE = colored(FullBlock, "blue")
-    MAGENTA = colored(FullBlock, "magenta")
-    CYAN = colored(FullBlock, "cyan")
-    WHITE = colored(FullBlock, "white")
-
-
-def computerChoice():
-    global CPU
-    count = 0
-    CPU = []
-    while count != 4:
-        count += 1
-        ALL = [RED, GREY, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE]
-        random.shuffle(ALL)
-        CPU.append(ALL[0])
-
+game = colors()
 
 def playerChoice():
     usercolors = {
@@ -67,8 +69,5 @@ def playerChoice():
     print(" ".join(numToColor))
 
 
-coloredBlocks()
-computerChoice()
-playerChoice()
 
 # print(' '.join(CPU))
