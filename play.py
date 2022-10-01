@@ -11,34 +11,40 @@ try: # Try to clear the terminal if not possible pass.
 except:
     pass
 
-class colors:
+class Game:
     def __init__(self):
-        self.FullBlock = "\u2588"  # Create a fullblock
-        self.RED = colored(colors.FullBlock, "red")
-        self.GREY = colored(colors.FullBlock, "grey")
-        self.GREEN = colored(colors.FullBlock, "green")
-        self.YELLOW = colored(colors.FullBlock, "yellow")
-        self.BLUE = colored(colors.FullBlock, "blue")
-        self.MAGENTA = colored(colors.FullBlock, "magenta")
-        self.CYAN = colored(colors.FullBlock, "cyan")
-        self.WHITE = colored(colors.FullBlock, "white")
-
-
-    def computerChoice(self):
+        self.ALLCOLORS = []
         self.count = 0
         self.CPU = []
-        while copmputerChoice.count != 4:
-            computerChoice.count += 1
-            self.ALL = [colors.RED, colors.GREY, colors.GREEN, colors.YELLOW, colors.BLUE, colors.MAGENTA, colors.CYAN, colors,WHITE]
-            random.shuffle(computerChoice.ALL)
-            computerChoice.CPU.append(computerChoiceALL[0])
+        self.usercolors = {}
+        self.usrValue = 0
+        self.numTocolor = []
 
-        return(computerChoice.CPU)
 
-game = colors()
+game = Game()
+
+FullBlock = "\u2588"  # Create a fullblock
+RED = colored(FullBlock, "red")
+GREY = colored(FullBlock, "grey")
+GREEN = colored(FullBlock, "green")
+YELLOW = colored(FullBlock, "yellow")
+BLUE = colored(FullBlock, "blue")
+MAGENTA = colored(FullBlock, "magenta")
+CYAN = colored(FullBlock, "cyan")
+WHITE = colored(FullBlock, "white")
+
+def startCPU():
+    while copmputerChoice.count != 4:
+        computerChoice.count += 1
+        colors.ALLCOLORS= [RED, GREY, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE]
+        random.shuffle(computerChoice.ALLCOLORS)
+        computerChoice.CPU.append(colors.ALLCOLORS[0])
+
+
+
 
 def playerChoice():
-    usercolors = {
+    game.usercolors = {
         "1": RED,
         "2": GREY,
         "3": GREEN,
@@ -58,16 +64,15 @@ def playerChoice():
     print("7 = " + str(CYAN))
     print("8 = " + str(WHITE))
 
-    usrValue = int(input())
-    usrValue = str(usrValue)
-
-    numToColor = []
-
-    for i in usrValue:
-        numToColor.append(usercolors[i])
-
-    print(" ".join(numToColor))
+    game.usrValue = int(input())
+    game.usrValue = str(game.usrValue)
 
 
+    for i in game.usrValue:
+        game.numToColor.append(game.usercolors[i])
+
+    print(" ".join(game.numToColor))
+
+playerChoice()
 
 # print(' '.join(CPU))
