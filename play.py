@@ -70,6 +70,8 @@ def playerChoice():
 
 
 def enterNum():
+    game.usrValue = None
+    game.numToColor = []
     print("Enter 4 numbers : ")
     try:
         game.usrValue = int(input())
