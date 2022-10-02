@@ -6,6 +6,7 @@ from termcolor import colored
 import random
 import os
 import logging
+import sys
 
 try:  # Try to clear the terminal if not possible pass.
     os.system("cls||clear")  # Clear the terminal
@@ -22,6 +23,7 @@ class Game:
         self.usercolors = {}
         self.usrValue = 0
         self.numToColor = []
+        self.results = []
 
 
 game = Game()
@@ -35,6 +37,33 @@ BLUE = colored(FullBlock, "blue")
 MAGENTA = colored(FullBlock, "magenta")
 CYAN = colored(FullBlock, "cyan")
 WHITE = colored(FullBlock, "white")
+
+
+def compare():
+    game.results = []
+    if game.CPU == game.numToColor:
+        print("You win !")
+        sys.exit(0)
+    if game.numToColor[0] == game.CPU[0]:
+        game.results.append(RED)
+    elif game.numToColor in game.CPU:
+        game.results.append(WHITE)
+    if game.numToColor[1] == game.CPU[1]:
+        game.results.append(RED)
+    elif game.numToColor in game.CPU:
+        game.results.append(WHITE)
+    if game.numToColor[2] == game.CPU[2]:
+        game.results.append(RED)
+    elif game.numToColor in game.CPU:
+        game.results.append(WHITE)
+    if game.numToColor[3] == game.CPU[3]:
+        game.results.append(RED)
+    elif game.numToColor in game.CPU:
+        game.results.append(WHITE)
+
+    print("Computer response : ")
+    print(" ".join(game.results))
+    enterNum()
 
 
 def startCPU():
@@ -88,6 +117,7 @@ def enterNum():
     if len(game.numToColor) == 4:
         print("Player colors : ")
         print(" ".join(game.numToColor))
+        compare()
 
 
 playerChoice()
