@@ -24,7 +24,7 @@ class Game:
         self.usrValue = 0
         self.numToColor = []
         self.results = []
-
+        self.selected = 0
 
 game = Game()
 
@@ -44,21 +44,31 @@ def compare():
     if game.CPU == game.numToColor:
         print("You win !")
         sys.exit(0)
+    game.selected = 0
     if game.numToColor[0] == game.CPU[0]:
         game.results.append(RED)
-    elif game.numToColor in game.CPU:
+        game.selected = 1
+    if game.numToColor[0] in game.CPU and game.selected == 0:
         game.results.append(WHITE)
+    game.selected = 0
+
     if game.numToColor[1] == game.CPU[1]:
         game.results.append(RED)
-    elif game.numToColor in game.CPU:
+        game.selected = 1
+    if game.numToColor[1] in game.CPU and game.selected == 0:
         game.results.append(WHITE)
+    game.selected = 0
+
     if game.numToColor[2] == game.CPU[2]:
         game.results.append(RED)
-    elif game.numToColor in game.CPU:
+        game.selected = 1
+    if game.numToColor[2] in game.CPU and game.selected == 0:
         game.results.append(WHITE)
+    game.selected = 0
     if game.numToColor[3] == game.CPU[3]:
         game.results.append(RED)
-    elif game.numToColor in game.CPU:
+        game.selected = 1
+    if game.numToColor[3] in game.CPU and game.selected == 0:
         game.results.append(WHITE)
 
     print("Computer response : ")
