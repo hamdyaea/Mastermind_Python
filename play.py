@@ -5,11 +5,14 @@
 from termcolor import colored
 import random
 import os
+import logging
 
-try: # Try to clear the terminal if not possible pass.
+try:  # Try to clear the terminal if not possible pass.
     os.system("cls||clear")  # Clear the terminal
-except:
+except Exception as e:
+    logging.warning(e)
     pass
+
 
 class Game:
     def __init__(self):
@@ -18,7 +21,7 @@ class Game:
         self.CPU = []
         self.usercolors = {}
         self.usrValue = 0
-        self.numTocolor = []
+        self.numToColor = []
 
 
 game = Game()
@@ -33,14 +36,15 @@ MAGENTA = colored(FullBlock, "magenta")
 CYAN = colored(FullBlock, "cyan")
 WHITE = colored(FullBlock, "white")
 
+
 def startCPU():
-    while copmputerChoice.count != 4:
-        computerChoice.count += 1
-        colors.ALLCOLORS= [RED, GREY, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE]
-        random.shuffle(computerChoice.ALLCOLORS)
-        computerChoice.CPU.append(colors.ALLCOLORS[0])
-
-
+    while game.count != 4:
+        game.count += 1
+        game.ALLCOLORS = [RED, GREY, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE]
+        random.shuffle(game.ALLCOLORS)
+        game.CPU.append(game.ALLCOLORS[0])
+    print("Computer colors : ")
+    print(" ".join(game.CPU))
 
 
 def playerChoice():
@@ -64,15 +68,28 @@ def playerChoice():
     print("7 = " + str(CYAN))
     print("8 = " + str(WHITE))
 
-    game.usrValue = int(input())
-    game.usrValue = str(game.usrValue)
 
+def enterNum():
+    game.numToColor = []
+    game.usrValue = ""
+    print("Enter 4 numbers : ")
+    try:
+        game.usrValue = int(input())
+    except Exception as e:
+        logging.error(e)
+        enterNum()
+    game.usrValue = str(game.usrValue)
 
     for i in game.usrValue:
         game.numToColor.append(game.usercolors[i])
 
-    print(" ".join(game.numToColor))
+    if len(game.numToColor) != 4:
+        enterNum()
+    if len(game.numToColor) == 4:
+        print("Player colors : ")
+        print(" ".join(game.numToColor))
+
 
 playerChoice()
-
-# print(' '.join(CPU))
+startCPU()
+enterNum()
