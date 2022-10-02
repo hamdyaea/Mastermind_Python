@@ -8,6 +8,7 @@ import os
 import logging
 import sys
 
+
 try:  # Try to clear the terminal if not possible pass.
     os.system("cls||clear")  # Clear the terminal
 except Exception as e:
@@ -25,6 +26,7 @@ class Game:
         self.numToColor = []
         self.results = []
         self.selected = 0
+
 
 game = Game()
 
