@@ -3,6 +3,9 @@
 # hamdy.aea@protonmail.com
 
 from termcolor import colored
+from termcolor import cprint
+from pyfiglet import figlet_format
+from colorama import init
 import random
 import os
 import logging
@@ -15,6 +18,8 @@ except Exception as e:
     logging.warning(e)
     pass
 
+
+cprint(figlet_format("Mastermind", font="starwars"), "green", "on_red", attrs=["bold"])
 
 class Game:
     def __init__(self):
