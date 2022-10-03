@@ -2,7 +2,7 @@
 
 # Mastermind in Python3    
 
-![Screenshot](masterming.jpg)    
+![Screenshot](mastermind.jpg)    
 
 ## What's this software ?     
 
