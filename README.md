@@ -20,7 +20,7 @@ This is a Mastermind game writed in Python3.
 
 ## How to play :     
 
-Python play.py    
+python play.py    
 
 
 ## Rules :      
