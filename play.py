@@ -84,8 +84,8 @@ def startCPU():
         game.ALLCOLORS = [RED, GREY, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE]
         random.shuffle(game.ALLCOLORS)
         game.CPU.append(game.ALLCOLORS[0])
-    print("Computer colors : ")
-    print(" ".join(game.CPU))
+    # print("Computer colors : ")
+    # print(" ".join(game.CPU))
 
 
 def playerChoice():
