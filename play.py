@@ -21,6 +21,7 @@ except Exception as e:
 
 cprint(figlet_format("Mastermind", font="starwars"), "green", "on_red", attrs=["bold"])
 
+
 class Game:
     def __init__(self):
         self.ALLCOLORS = []
