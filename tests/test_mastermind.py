@@ -10,7 +10,7 @@ class MastermindTests(unittest.TestCase):
     def test_misplaced(self):
         self.assertEqual(feedback("1234", "4321"), (0, 4))
     def test_duplicates(self):
-        self.assertEqual(feedback("1122", "1211"), (2, 1))
+        self.assertEqual(feedback("1122", "1211"), (1, 2))
     def test_invalid(self):
         for guess in ("123", "12345", "1294", "abcd"):
             with self.assertRaises(ValueError):
