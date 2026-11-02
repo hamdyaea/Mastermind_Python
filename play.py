@@ -1,149 +1,54 @@
 #!/usr/bin/env python3
-# Developer : Hamdy Abou El Anein
-# hamdy.aea@protonmail.com
+# Developer: Hamdy Abou El Anein
+# Contact: info@daylightlinux.ch
+# SPDX-License-Identifier: GPL-3.0-only
+"""Mastermind CLI: guess four colours (digits 1–8)."""
+from __future__ import annotations
+import argparse
+from collections import Counter
+import secrets
 
-from termcolor import colored
-from termcolor import cprint
-from pyfiglet import figlet_format
+LENGTH = 4
+COLORS = "12345678"
 
-# from colorama import init
-import random
-import os
-import logging
-import sys
+def new_secret() -> str:
+    return "".join(secrets.choice(COLORS) for _ in range(LENGTH))
 
+def validate_guess(guess: str) -> str:
+    if len(guess) != LENGTH or any(char not in COLORS for char in guess):
+        raise ValueError(f"Enter exactly {LENGTH} digits from 1 to 8")
+    return guess
 
-try:  # Try to clear the terminal if not possible pass.
-    os.system("cls||clear")  # Clear the terminal
-except Exception as e:
-    logging.warning(e)
-    pass
+def feedback(secret: str, guess: str) -> tuple[int, int]:
+    validate_guess(secret)
+    validate_guess(guess)
+    exact = sum(a == b for a, b in zip(secret, guess))
+    shared = sum((Counter(secret) & Counter(guess)).values())
+    return exact, shared - exact
 
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--attempts", type=int, default=10)
+    args = parser.parse_args()
+    if not 1 <= args.attempts <= 100:
+        parser.error("--attempts must be between 1 and 100")
+    secret = new_secret()
+    print("Mastermind — guess four digits 1–8. Repeated digits are allowed.")
+    for turn in range(1, args.attempts + 1):
+        try:
+            guess = validate_guess(input(f"Guess {turn}/{args.attempts}: ").strip())
+        except (EOFError, KeyboardInterrupt):
+            print("\nGame cancelled")
+            return
+        except ValueError as exc:
+            print(exc)
+            continue
+        exact, misplaced = feedback(secret, guess)
+        print(f"Correct place: {exact}; right digit wrong place: {misplaced}")
+        if exact == LENGTH:
+            print("You win!")
+            return
+    print(f"Game over. Secret: {secret}")
 
-cprint(
-    figlet_format("Mastermind", font="starwars"),
-    "green",
-    "on_red",
-    attrs=["bold"],
-)
-
-
-class Game:
-    def __init__(self):
-        self.ALLCOLORS = []
-        self.count = 0
-        self.CPU = []
-        self.usercolors = {}
-        self.usrValue = 0
-        self.numToColor = []
-        self.results = []
-        self.selected = 0
-
-
-game = Game()
-
-FullBlock = "\u2588"  # Create a fullblock
-RED = colored(FullBlock, "red")
-GREY = colored(FullBlock, "grey")
-GREEN = colored(FullBlock, "green")
-YELLOW = colored(FullBlock, "yellow")
-BLUE = colored(FullBlock, "blue")
-MAGENTA = colored(FullBlock, "magenta")
-CYAN = colored(FullBlock, "cyan")
-WHITE = colored(FullBlock, "white")
-
-
-def compare():
-    game.results = []
-    if game.CPU == game.numToColor:
-        print("You win !")
-        sys.exit(0)
-    game.selected = 0
-    if game.numToColor[0] == game.CPU[0]:
-        game.results.append(RED)
-        game.selected = 1
-    if game.numToColor[0] in game.CPU and game.selected == 0:
-        game.results.append(WHITE)
-    game.selected = 0
-
-    if game.numToColor[1] == game.CPU[1]:
-        game.results.append(RED)
-        game.selected = 1
-    if game.numToColor[1] in game.CPU and game.selected == 0:
-        game.results.append(WHITE)
-    game.selected = 0
-
-    if game.numToColor[2] == game.CPU[2]:
-        game.results.append(RED)
-        game.selected = 1
-    if game.numToColor[2] in game.CPU and game.selected == 0:
-        game.results.append(WHITE)
-    game.selected = 0
-    if game.numToColor[3] == game.CPU[3]:
-        game.results.append(RED)
-        game.selected = 1
-    if game.numToColor[3] in game.CPU and game.selected == 0:
-        game.results.append(WHITE)
-
-    print("Computer response : ")
-    print(" ".join(game.results))
-    enterNum()
-
-
-def startCPU():
-    while game.count != 4:
-        game.count += 1
-        game.ALLCOLORS = [RED, GREY, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE]
-        random.shuffle(game.ALLCOLORS)
-        game.CPU.append(game.ALLCOLORS[0])
-    # print("Computer colors : ")
-    # print(" ".join(game.CPU))
-
-
-def playerChoice():
-    game.usercolors = {
-        "1": RED,
-        "2": GREY,
-        "3": GREEN,
-        "4": YELLOW,
-        "5": BLUE,
-        "6": MAGENTA,
-        "7": CYAN,
-        "8": WHITE,
-    }
-
-    print("1 = " + str(RED))
-    print("2 = " + str(GREY))
-    print("3 = " + str(GREEN))
-    print("4 = " + str(YELLOW))
-    print("5 = " + str(BLUE))
-    print("6 = " + str(MAGENTA))
-    print("7 = " + str(CYAN))
-    print("8 = " + str(WHITE))
-
-
-def enterNum():
-    game.usrValue = None
-    game.numToColor = []
-    print("Enter 4 numbers : ")
-    try:
-        game.usrValue = int(input())
-    except Exception as e:
-        logging.error(e)
-        enterNum()
-    game.usrValue = str(game.usrValue)
-
-    for i in game.usrValue:
-        game.numToColor.append(game.usercolors[i])
-
-    if len(game.numToColor) != 4:
-        enterNum()
-    if len(game.numToColor) == 4:
-        print("Player colors : ")
-        print(" ".join(game.numToColor))
-        compare()
-
-
-playerChoice()
-startCPU()
-enterNum()
+if __name__ == "__main__":
+    main()
